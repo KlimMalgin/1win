@@ -1,0 +1,19 @@
+{
+  "name": "1win",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KlimMalgin/1win.git"
+  },
+  "author": "KlimMalgin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KlimMalgin/1win/issues"
+  },
+  "homepage": "https://github.com/KlimMalgin/1win#readme"
+}
