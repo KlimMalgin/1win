@@ -2,9 +2,11 @@
   "name": "1win",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 app.js",
+    "start-dev": "nodemon -e js,json,html app.js",
+    "start-devtools": "nodemon --inspect -e js,json,html app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,20 @@
   "bugs": {
     "url": "https://github.com/KlimMalgin/1win/issues"
   },
-  "homepage": "https://github.com/KlimMalgin/1win#readme"
+  "homepage": "https://github.com/KlimMalgin/1win#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "koa": "^2.5.2",
+    "koa-body": "^4.0.4",
+    "koa-session": "^5.8.2",
+    "koa-socket": "^4.4.0",
+    "koa-static": "^5.0.0",
+    "mysql2": "^1.6.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^5.2.0",
+    "forever": "^0.15.3",
+    "nodemon": "^1.18.3"
+  }
 }
