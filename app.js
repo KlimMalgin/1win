@@ -3,17 +3,7 @@ const Koa      = require('koa');
 const body     = require('koa-body');
 const compose  = require('koa-compose');
 const mysql    = require('mysql2');
-const rc       = require('rc');
-
-// Конфигурация берется из .1winrc, либо текущая дефолтная
-let cfg = rc('1win', {
-    db : {
-        'host'     : 'localhost',
-        'user'     : 'root',
-        'password' : '',
-        'database' : '1win',
-    },
-});
+const cfg      = require('./config');
 
 const app = new Koa();
 

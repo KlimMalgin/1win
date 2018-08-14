@@ -1,14 +1,5 @@
-const mysql    = require('mysql2/promise');
-const rc       = require('rc');
-
-let cfg = rc('1win', {
-    db : {
-        'host'     : 'localhost',
-        'user'     : 'root',
-        'password' : '',
-        'database' : '1win',
-    },
-});
+const mysql = require('mysql2/promise');
+const cfg   = require('../config');
 
 // Сколько записей будет сгенерировано записей
 const ROWS_COUNT = 100000;
