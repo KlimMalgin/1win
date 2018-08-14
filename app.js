@@ -1,24 +1,23 @@
 
-const Koa      = require('koa'); // Koa framework
-const body     = require('koa-body'); // body parser
-const compose  = require('koa-compose'); // middleware composer
-const session  = require('koa-session'); // session for flash messages
-const mysql    = require('mysql2/promise'); // fast mysql driver
-const debug    = require('debug')('app'); // small debugging utility
-const IO = require( 'koa-socket' );
+const Koa      = require('koa');
+const body     = require('koa-body');
+const compose  = require('koa-compose');
+const mysql    = require('mysql2');
+const rc       = require('rc');
 
-// require('dotenv').config(); // loads environment variables from .env file (if available - eg dev env)
-
-const dbConnection = process.env.DB_CONNECTION || '';
+// Конфигурация берется из .1winrc, либо текущая дефолтная
+let cfg = rc('1win', {
+    db : {
+        'host'     : 'localhost',
+        'user'     : 'root',
+        'password' : '',
+        'database' : '1win',
+    },
+});
 
 const app = new Koa();
-const io = new IO();
-
-
-io.attach( app );
 
 // -------------
-
 
 app.use(async function responseTime(ctx, next) {
     const t1 = Date.now();
@@ -29,45 +28,33 @@ app.use(async function responseTime(ctx, next) {
     ctx.set('X-Response-Time', Math.ceil(t2 - t1) + 'ms');
 });
 
-// parse request body into ctx.request.body
-// - multipart allows parsing of enctype=multipart/form-data
 app.use(body({ multipart: true }));
 
 // ------------
 
-app._io.on( 'connection', sock => {
-    console.log('кто-то подключился');
+app.use(async function composeSubapp(ctx) {
+
+    await compose(require('./client/index.js').middleware)(ctx);
+
 });
 
-app.use(async function composeSubapp(ctx) { // note no 'next' after composed subapp
 
-    await compose(require('./app/www/index.js').middleware)(ctx);
+global.connectionPool = mysql.createPool(cfg.db);
 
-    /* switch (ctx.state.subapp) {
-    case 'admin': await compose(require('./app-admin/app-admin.js').middleware)(ctx); break;
-    case 'api': await compose(require('./app-api/app-api.js').middleware)(ctx); break;
-    case 'www': await compose(require('./app-www/app-www.js').middleware)(ctx); break;
-    default: // no (recognised) subdomain? canonicalise host to www.host
-        // note switch must include all registered subdomains to avoid potential redirect loop
-        ctx.redirect(ctx.protocol + '://' + 'www.' + ctx.host + ctx.path + ctx.search);
-        break;
-    } */
-});
+const promisePool = global.connectionPool.promise();
 
-// MySQL connection pool (set up on app initialisation)
-/*
-const dbConfigKeyVal = dbConnection.split(';').map(v => v.trim().split('='));
-const dbConfig = dbConfigKeyVal.reduce((config, v) => {
-    config[v[0].toLowerCase()] = v[1];
+(async function() {
 
-    return config;
-}, {});
+    try {
+        const [rows] = await promisePool.query('select * from test;');
 
-global.connectionPool = mysql.createPool(dbConfig); // put in global to pass to sub-apps
-*/
+        console.log('rows: \n', rows);
+    }
+    catch (e) {
+        throw new Error(e);
+    }
 
+})();
 
-
-// module.exports = app;
 
 app.listen(3006);

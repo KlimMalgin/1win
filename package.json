@@ -25,7 +25,8 @@
     "koa-session": "^5.8.2",
     "koa-socket": "^4.4.0",
     "koa-static": "^5.0.0",
-    "mysql2": "^1.6.1"
+    "mysql2": "^1.6.1",
+    "rc": "^1.2.8"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
