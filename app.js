@@ -13,7 +13,7 @@ app.use(async function composeSubapp(ctx) {
 
     switch (target) {
     case 'api': await compose(require('./api/index.js').middleware)(ctx); break;
-    case '': await compose(require('./client/index.js').middleware)(ctx); break;
+    case '': await compose(require('./client.js').middleware)(ctx); break;
     }
 
 });
