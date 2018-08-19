@@ -1,10 +1,12 @@
 
 const Koa   = require('koa');
+const cors = require('@koa/cors');
 const mysql = require('mysql2');
 const cfg   = require('../config');
 
 const app = new Koa();
 
+app.use(cors());
 
 app.use(async function handleErrors(ctx, next) {
     try {

@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/KlimMalgin/1win#readme",
   "dependencies": {
+    "@koa/cors": "2",
     "debug": "^3.1.0",
     "koa": "^2.5.2",
     "koa-body": "^4.0.4",

@@ -11,7 +11,7 @@ const authorName = ['Oleg', 'Igor', 'Andrey', 'Linda', 'Jonatan', 'Elizabet'];
 const authorSurname = ['Brovchenko', 'Bori', 'Chan', 'Shefer', 'Robbins', 'Kovi'];
 
 const loremIpsum = 'Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo.';
-const loremImage = 'https://loremflickr.com/310/460';
+const loremImage = 'https://loremflickr.com/310/220';
 
 
 
