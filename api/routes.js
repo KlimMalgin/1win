@@ -10,12 +10,14 @@ router.get('/api', function getRoot(ctx) {
 
     ctx.body = {
         resources : resources,
-        root      : 'api', 
+        root      : 'api',
     };
 });
 
 router.get('/api/books', BooksRead.getBooks);
+router.get('/api/books/count', BooksRead.getBooksCount);
 router.post('/api/books', BooksCreate.addBook);
 router.put('/api/books', BooksEdit.updateBook);
+
 
 module.exports = router.middleware();

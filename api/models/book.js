@@ -9,6 +9,10 @@ class Book {
         return await global.db.query(`select * from books limit ${pos},${count};`);
     }
 
+    static async countItems() {
+        return await global.db.query('select count(*) from books');
+    }
+
     /**
      * Добавляет запись о книге в БД
      */

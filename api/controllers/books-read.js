@@ -8,10 +8,21 @@ class BooksRead {
         const params = getParams(ctx.request.search);
         const [rows] = await Book.getItems(params.offset, params.count);
 
-        ctx.body = rows;
         ctx.body = {
             success : true,
             data    : { rows },
+        };
+
+        ctx.status = 200;
+    }
+
+    static async getBooksCount(ctx) {
+        const [rows] = await Book.countItems();
+        const count = rows[0]['count(*)'];
+
+        ctx.body = {
+            success : true,
+            data    : { count },
         };
 
         ctx.status = 200;
